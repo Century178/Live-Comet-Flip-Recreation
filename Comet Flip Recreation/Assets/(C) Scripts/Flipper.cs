@@ -19,12 +19,10 @@ public class Flipper : MonoBehaviour
         {
             if (horizontal)
             {
-                player.direction.x *= -1f;
+                player.Direction.x *= -1f;
+                return;
             }
-            else
-            {
-                player.direction.y *= -1f;
-            }
+            player.Direction.y *= -1f;
         }
     }
 }

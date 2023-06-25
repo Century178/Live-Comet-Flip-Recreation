@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Pause : MonoBehaviour
 {
-    public static Pause instance;
+    public static Pause Instance { get; private set; }
 
     [SerializeField] private GameObject pauseScreen;
 
@@ -12,43 +12,27 @@ public class Pause : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null)
         {
             Destroy(gameObject);
+            return;
         }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(2))
         {
-            if (!isPaused)
-            {
-                PauseGame();
-            }
-            else
-            {
-                ResumeGame();
-            }
+            PauseGame();
         }
     }
 
     private void PauseGame()
     {
-        Time.timeScale = 0;
-        pauseScreen.SetActive(true);
-        isPaused = true;
-    }
-
-    private void ResumeGame()
-    {
-        Time.timeScale = 1;
-        pauseScreen.SetActive(false);
-        isPaused = false;
+        isPaused = !isPaused;
+        pauseScreen.SetActive(isPaused);
+        Time.timeScale = isPaused ? 0 : 1;
     }
 }

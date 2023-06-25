@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-
 public class Player : MonoBehaviour
 {
     [SerializeField] private float moveSpeed;
 
     [SerializeField] private Vector2 startDirection;
-    [HideInInspector] public Vector2 direction;
+    [HideInInspector] public Vector2 Direction;
 
     [SerializeField] private Vector2 spawnPoint;
 
@@ -25,18 +24,18 @@ public class Player : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            direction.x *= -1f;
+            Direction.x *= -1f;
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            direction.y *= -1f;
+            Direction.y *= -1f;
         }
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = direction * moveSpeed; //'direction' does not need to be normalized since the player only ever goes diagonally.
+        rb.velocity = Direction * moveSpeed; //'direction' does not need to be normalized since the player only ever goes diagonally.
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -50,6 +49,6 @@ public class Player : MonoBehaviour
     private void Spawn()
     {
         transform.position = spawnPoint;
-        direction = startDirection;
+        Direction = startDirection;
     }
 }
